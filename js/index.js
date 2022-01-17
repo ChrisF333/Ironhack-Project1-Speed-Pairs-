@@ -106,7 +106,6 @@ function getDeck() {
 getDeck();
 
 //Refine to 25 cards (12 pairs and 1 joker) and shuffle - this is the shuffled deck for the game
-
 function chooseCards(cardDeck) {
     let shuffledDeck = [];
     let cardIds = cardDeck.map(item => item.id).filter((value, index, self) => self.indexOf(value) === index && value !== 'Jk');
@@ -139,32 +138,75 @@ function drawCards(shuffledDeck) {
         cardItem.id = shuffledDeck[i].id;
         cardItem.addEventListener('click', cardClicked, false);
         board.appendChild(cardItem);
-        console.log(cardItem.src);
     }
 }
 
 drawCards(chooseCards(cardDeck));
 
 //declare key game monitor variables
-let cardsClicked = 0;
+let numberCardsSelected = 0;
+let cardsSelected = [];
 let pairsFound = 0;
 
+//Handle card click events and trigger matching when two are selected
 function cardClicked(e) {
     //if joker then call game over function
     var a = e.target || e.srcElement;
     console.log(a.id);
     if (a.class === 'playing-card') {
+        numberCardsSelected += 1
         a.style.border = "2px solid orange";
         a.class = "playing-card-selected";
-        console.log(a.class);
+        cardsSelected.push(a);
+        //console.log(a.class);
+        //console.log(cardsSelected);
     } else {
+        numberCardsSelected -= 1
         a.class = 'playing-card';
         a.style.border = "none";
-        console.log(a.class);
+        cardsSelected = cardsSelected.filter((el) => el !== a);
+        //console.log(a.class);
+        //console.log(cardsSelected);
+    };
+    if (numberCardsSelected === 2) {
+        cardMatcher(cardsSelected);
+        cardsSelected = [];
+        numberCardsSelected = 0;
+    };
+    if (pairsFound >= 12) {
+        return gameOver();
+    };
+    return pairsFound;    
+}
+
+//Compare the two cards 
+function cardMatcher(cardsSelected) {
+    console.log(cardsSelected);
+    console.log(numberCardsSelected);
+    if (cardsSelected[0].id === cardsSelected[1].id) {
+        console.log("cards match!");
+        cardsSelected.forEach((el) => {
+            el.src="./Assets/Images/Others/cardBack_green5.png";
+            el.class = "paired"
+            el.style.border = "1px solid darkgrey";
+            el.removeEventListener('click', cardClicked);
+            return pairsFound += 1;
+        });
+    } else {
+        console.log("cards do not match");
+        cardsSelected.forEach((el) => {
+            el.class = "playing-card"
+            el.style.border = "none";
+            return false
+        });
     }
-    
+    console.log(cardsSelected);
+}
+
+function gameOver(pairsFound) {
+    console.log('Game Over!');
 }
 
 
 
-console.log(chooseCards(cardDeck));
+//console.log(chooseCards(cardDeck));
