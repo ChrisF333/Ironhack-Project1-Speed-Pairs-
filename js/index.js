@@ -150,9 +150,9 @@ let pairsFound = 0;
 
 //Handle card click events and trigger matching when two are selected
 function cardClicked(e) {
-    //if joker then call game over function
     var a = e.target || e.srcElement;
     console.log(a.id);
+    if(a.id === 'Jk') { gameOver(pairsFound); } //Clicking the joker triggers instant game over
     if (a.class === 'playing-card') {
         numberCardsSelected += 1
         a.style.border = "2px solid orange";
@@ -179,7 +179,7 @@ function cardClicked(e) {
     return pairsFound;    
 }
 
-//Compare the two cards 
+//Compare the two cards and handle matched and unmatched events
 function cardMatcher(cardsSelected) {
     console.log(cardsSelected);
     console.log(numberCardsSelected);
@@ -190,21 +190,40 @@ function cardMatcher(cardsSelected) {
             el.class = "paired"
             el.style.border = "1px solid darkgrey";
             el.removeEventListener('click', cardClicked);
-            return pairsFound += 1;
         });
+        matchFoundAnimation();
+        return pairsFound += 1;
     } else {
         console.log("cards do not match");
         cardsSelected.forEach((el) => {
             el.class = "playing-card"
             el.style.border = "none";
-            return false
+            //return false
         });
+        noMatchAnimation();
     }
     console.log(cardsSelected);
 }
 
+function matchFoundAnimation() {
+   //to be defined
+}
+
+function noMatchAnimation() {
+    //to be defined
+}
+
 function gameOver(pairsFound) {
     console.log('Game Over!');
+    const boardRef = document.getElementById('board');
+    const loseBannerRef = document.getElementById('lose-banner');
+    const winBannerRef = document.getElementById('win-banner');
+    boardRef.style.display = "none";
+    if (pairsFound < 12) {
+        loseBannerRef.style.display = "block";
+    } else {
+        winBannerRef.style.display = "block";
+    }
 }
 
 

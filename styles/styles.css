@@ -20,6 +20,10 @@ body {
     margin: 5px;
 }
 
-.playing-card-selected {
-    border-style: 2px solid orange;
+#lose-banner {
+    display: none;
+}
+
+#win-banner {
+    display: none;
 }
