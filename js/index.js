@@ -110,11 +110,12 @@ function getDeck() {
 getDeck();
 
 //Refine to 25 cards (12 pairs and 1 joker) and shuffle - this is the shuffled deck for the game
+
 function chooseCards(cardDeck) {
     let shuffledDeck = [];
     let cardIds = cardDeck.map(item => item.id).filter((value, index, self) => self.indexOf(value) === index && value !== 'Jk');
     cardIds.sort(() => Math.random() - 0.5);    
-    for (i = 0; i < 12; i++) {
+    for (let i = 0; i < 12; i++) {
         let selectedCards = cardDeck.filter((el) => el.id === cardIds[i]);
         selectedCards.sort(() => Math.random() - 0.5);
         //shuffledDeck.push(selectedCards.slice(0,2)); //make sure to just push the object and not the array
@@ -129,6 +130,24 @@ function chooseCards(cardDeck) {
 chooseCards(cardDeck);
 
 //Draw the cards on the canvas
+function drawCards(shuffledDeck) {
+    //let x = 0;
+    //let y = 0;
+    let board = document.getElementById('board'); 
+    for(let i = 0; i < shuffledDeck.length; i++) {
+        let cardItem = document.createElement('img');
+        let imgString = shuffledDeck[i].img;
+        console.log(imgString);
+        //cardItem.setAttribute = ('src', `${imgString}`); //not sure why it can't be done this way!
+        cardItem.src = imgString;
+        cardItem.setAttribute = ('class', 'playing-card');
+        cardItem.setAttribute = ('id', shuffledDeck[i].id);
+        board.appendChild(cardItem);
+        console.log(cardItem.src)
+    }
+}
+
+drawCards(chooseCards(cardDeck));
 
 
 console.log(chooseCards(cardDeck));
