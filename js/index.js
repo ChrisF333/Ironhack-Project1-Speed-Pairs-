@@ -1,10 +1,6 @@
 console.log('test')
 //Window load start game function
 
-//Get the canvas and context
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-
 //Instiate the playing card objects and link to assets
 class Card {
     constructor(name, id, assetLink) {
@@ -137,17 +133,38 @@ function drawCards(shuffledDeck) {
     for(let i = 0; i < shuffledDeck.length; i++) {
         let cardItem = document.createElement('img');
         let imgString = shuffledDeck[i].img;
-        console.log(imgString);
-        //cardItem.setAttribute = ('src', `${imgString}`); //not sure why it can't be done this way!
-        cardItem.src = imgString;
-        cardItem.setAttribute = ('class', 'playing-card');
-        cardItem.setAttribute = ('id', shuffledDeck[i].id);
+        cardItem.src = shuffledDeck[i].img; 
+        //cardItem.setAttribute = ('class', 'playing-card');
+        cardItem.class = 'playing-card';
+        cardItem.id = shuffledDeck[i].id;
+        cardItem.addEventListener('click', cardClicked, false);
         board.appendChild(cardItem);
-        console.log(cardItem.src)
+        console.log(cardItem.src);
     }
 }
 
 drawCards(chooseCards(cardDeck));
+
+//declare key game monitor variables
+let cardsClicked = 0;
+let pairsFound = 0;
+
+function cardClicked(e) {
+    //if joker then call game over function
+    var a = e.target || e.srcElement;
+    console.log(a.id);
+    if (a.class === 'playing-card') {
+        a.style.border = "2px solid orange";
+        a.class = "playing-card-selected";
+        console.log(a.class);
+    } else {
+        a.class = 'playing-card';
+        a.style.border = "none";
+        console.log(a.class);
+    }
+    
+}
+
 
 
 console.log(chooseCards(cardDeck));
