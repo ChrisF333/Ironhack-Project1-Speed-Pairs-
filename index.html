@@ -6,12 +6,34 @@
         <title>Speed Pairs</title>
     </head>
     <body>
-
+        <div id="intro">
+            <div id="intro-text">
+                <h2>Welcome to Speed Pairs!</h2>
+                <p>Every day some new hopeful enters my casino and wants to try the game that has never been beaten. None of them stand a chance of course, but it's 
+                entertaining to watch them gnash their teeth and tear their hair out. Perhaps you'd like to be next?</p>
+                <br>
+                <b>Introduction</b>
+                <p>Speed pairs was made for stupid people like... oh nevermind. It's very simple, that's all I'm saying. Just find 12 pairs of cards before the time runs out. To match two cards, simply click on one and then the 
+                    other - if your choices match they will be removed from the board. But you better be quick, the timer starts as soon as you start the game!</p>
+                <br>
+                <p>One last thing: <i>watch out for the joker. If you click on him you lose instantly!</i> Such fun.</p>
+                <br>
+                <p>Best of luck and I can't wait to say I told you so.</p>        
+            </div>
+            <div id="logo">
+                <img src="Assets/Images/Others/our_host.png">
+            </div>
+            <button class="btn effect" id="btn-start">Start the clock</button>
+        </div>
+        
+        <div id="countdown"></div>
         <div id="board">
             <!--<img src="./Assets/Images/Cards/cardSpades5.png">-->
         </div>
+
         <p id='lose-banner'>You lose!</p>
         <p id='win-banner'>You win!</p>
+        <button class="btn effect" id="btn-try-again" type="button">Try again</button>
 
          <script type="text/javascript" src="./js/index.js"></script>
     </body>

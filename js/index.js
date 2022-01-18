@@ -1,5 +1,22 @@
 console.log('test')
-//Window load start game function
+
+//Code starts - declare importaant global variables
+var attempts = 0;
+
+//Handle start button
+const startBtnRef = document.getElementById('btn-start');
+startBtnRef.addEventListener('click', startGame);
+
+//Start game function
+function startGame() {
+    const introRef = document.getElementById('intro');
+    const boardRef = document.getElementById('board');
+    const clockRef = document.getElementById('countdown');
+    introRef.style.display = "none";
+    boardRef.style.setProperty('visibility', 'visible');
+    clockRef.style.display = "block";
+    setClock();
+}
 
 //Instiate the playing card objects and link to assets
 class Card {
@@ -213,12 +230,31 @@ function noMatchAnimation() {
     //to be defined
 }
 
+//Set the game clock and handle timeout
+function setClock() {
+    let timeLeft = 30.0;
+    let gameClock = setInterval(function () {
+        if(timeLeft <= 0){
+          clearInterval(gameClock);
+          document.getElementById("countdown").innerHTML = "Time Up";
+          gameOver(pairsFound);
+        } else {
+          document.getElementById("countdown").innerHTML = timeLeft.toFixed(2) + " seconds remaining";
+        }
+        timeLeft -= 0.01;
+      }, 10);
+    
+}
+//setClock(); handle on game start button click
+
 function gameOver(pairsFound) {
     console.log('Game Over!');
     const boardRef = document.getElementById('board');
+    const clockRef = document.getElementById('countdown');
     const loseBannerRef = document.getElementById('lose-banner');
     const winBannerRef = document.getElementById('win-banner');
     boardRef.style.display = "none";
+    clockRef.style.display = "none";
     if (pairsFound < 12) {
         loseBannerRef.style.display = "block";
     } else {
