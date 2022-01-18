@@ -222,12 +222,42 @@ function cardMatcher(cardsSelected) {
     console.log(cardsSelected);
 }
 
+//Shows and then fades out green tick
 function matchFoundAnimation() {
-   //to be defined
+   const tickRef = document.getElementById('tick');
+   tickRef.style.opacity = 1;
+   let fadeEffect = setInterval(function () {
+    if (!tickRef.style.opacity) {
+        tickRef.style.opacity = 1;
+    }
+    if (tickRef.style.opacity > 0) {
+        tickRef.style.opacity -= 0.1;
+    } else {
+        clearInterval(fadeEffect);
+    }
+}, 30);
 }
 
+//Shakes the board to indicate no match is found
 function noMatchAnimation() {
-    //to be defined
+    const boardRef = document.getElementById('board');
+    boardRef.style.setProperty('margin-left','25px');
+    setTimeout(function() {
+        boardRef.style.setProperty('margin-right','25px');
+    },50)
+    setTimeout(function() {
+        boardRef.style.setProperty('margin-left','25px');
+    },50)
+    setTimeout(function() {
+        boardRef.style.setProperty('margin-right','25px');
+    },50)
+    setTimeout(function() {
+       boardRef.style.setProperty('margin-left','25px');
+    },50)
+    setTimeout(function() {
+        boardRef.style.setProperty('margin-left','10px')
+        boardRef.style.setProperty('margin-right','10px');
+    },10)
 }
 
 //Set the game clock and handle timeout
@@ -245,8 +275,8 @@ function setClock() {
       }, 10);
     
 }
-//setClock(); handle on game start button click
 
+//Handle game over events
 function gameOver(pairsFound) {
     console.log('Game Over!');
     const boardRef = document.getElementById('board');

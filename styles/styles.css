@@ -31,12 +31,19 @@ body {
     align-items: center;
     align-content: space-around;
     visibility: hidden;
+    margin-left: 25px;
+    margin-right: 10px;
 }
 
 #board img {
     width: 75px;
     margin: 5px;
     /*display: none;*/
+}
+
+#tick {
+    width: 50px;
+    opacity: 0;
 }
 
 #lose-banner {
