@@ -7,6 +7,7 @@ window.onbeforeunload = function () {
 
 
 //Code starts - declare importaant global variables
+var timeAllowed = 30.0;
 var attempts = 0;
 var gameEnded = false;
 
@@ -270,7 +271,7 @@ function noMatchAnimation() {
 
 //Set the game clock and handle timeout
 function setClock() {
-    let timeLeft = 20.0;
+    let timeLeft = timeAllowed; //set at top of code
     let gameClock = setInterval(function () {
         if(gameEnded === true) {
             clearInterval(gameClock);
@@ -283,7 +284,6 @@ function setClock() {
         }
         timeLeft -= 0.01;
       }, 10);
-    
 }
 
 //Handle game over events
@@ -299,7 +299,10 @@ function gameOver(pairsFound) {
     if (pairsFound < 12) {
         loseBannerRef.style.display = "flex";
     } else {
-        winBannerRef.style.display = "block";
+        const winDialogueRef = document.getElementById('win-dialogue');
+        let timeSpent = (attempts * timeAllowed) / 60;
+        winDialogueRef.innerHTML = `Congratulations, you just wasted ${timeSpent} minutes of your life trying to beat me. Now which one of us is the loser?`
+        winBannerRef.style.display = "flex";
     }
 }
 
@@ -332,5 +335,27 @@ function tryAgain() {
     setClock();
 }
 
+//Handle start over button
+const startOverBtnRef = document.getElementById('btn-start-over');
+startOverBtnRef.addEventListener('click', startOver);
+
+//Clear attempts and start over
+function startOver() {
+    console.log('button working')
+    attempts = 0;
+    clearBoard();
+    reShuffle = chooseCards(cardDeck); 
+    drawCards(reShuffle);
+    pairsFound = 0;
+    attempts += 1;
+    gameEnded = false;
+    const WinBannerRef = document.getElementById('win-banner');
+    const boardRef = document.getElementById('board');
+    const clockRef = document.getElementById('countdown');
+    WinBannerRef.style.display = "none";
+    boardRef.style.display = "flex";
+    clockRef.style.display = "block";
+    setClock();
+}
 //console.log(chooseCards(cardDeck));
 
