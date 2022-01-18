@@ -1,7 +1,14 @@
 console.log('test')
 
+//force window to top on load
+window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+  }
+
+
 //Code starts - declare importaant global variables
 var attempts = 0;
+var gameEnded = false;
 
 //Handle start button
 const startBtnRef = document.getElementById('btn-start');
@@ -15,6 +22,7 @@ function startGame() {
     introRef.style.display = "none";
     boardRef.style.setProperty('visibility', 'visible');
     clockRef.style.display = "block";
+    attempts += 1;
     setClock();
 }
 
@@ -113,11 +121,12 @@ function assignCardPaths() {
 assignCardPaths();
 
 //Assemble the deck of cards (select appropriate number of cards here?)
-cardDeck = [];
+var cardDeck = [];
 function getDeck() {
     cardPaths.forEach(e => {
         cardDeck.push(new Card(e.name, e.id, e.assetLink));
     });
+    return cardDeck;
 }
 
 getDeck();
@@ -148,7 +157,6 @@ function drawCards(shuffledDeck) {
     let board = document.getElementById('board'); 
     for(let i = 0; i < shuffledDeck.length; i++) {
         let cardItem = document.createElement('img');
-        let imgString = shuffledDeck[i].img;
         cardItem.src = shuffledDeck[i].img; 
         //cardItem.setAttribute = ('class', 'playing-card');
         cardItem.class = 'playing-card';
@@ -262,14 +270,16 @@ function noMatchAnimation() {
 
 //Set the game clock and handle timeout
 function setClock() {
-    let timeLeft = 30.0;
+    let timeLeft = 20.0;
     let gameClock = setInterval(function () {
-        if(timeLeft <= 0){
+        if(gameEnded === true) {
+            clearInterval(gameClock);
+        } else if(timeLeft <= 0){
           clearInterval(gameClock);
           document.getElementById("countdown").innerHTML = "Time Up";
           gameOver(pairsFound);
         } else {
-          document.getElementById("countdown").innerHTML = timeLeft.toFixed(2) + " seconds remaining";
+          document.getElementById("countdown").innerHTML = timeLeft.toFixed(2); // + " seconds remaining";
         }
         timeLeft -= 0.01;
       }, 10);
@@ -279,6 +289,7 @@ function setClock() {
 //Handle game over events
 function gameOver(pairsFound) {
     console.log('Game Over!');
+    gameEnded = true;     
     const boardRef = document.getElementById('board');
     const clockRef = document.getElementById('countdown');
     const loseBannerRef = document.getElementById('lose-banner');
@@ -286,12 +297,40 @@ function gameOver(pairsFound) {
     boardRef.style.display = "none";
     clockRef.style.display = "none";
     if (pairsFound < 12) {
-        loseBannerRef.style.display = "block";
+        loseBannerRef.style.display = "flex";
     } else {
         winBannerRef.style.display = "block";
     }
 }
 
+//Clear the board by looping through and removing all the card elements
+function clearBoard() {
+    const boardRef = document.getElementById('board');
+    while (boardRef.firstChild) { //true false test to see if any child element still exists
+        boardRef.removeChild(boardRef.lastChild);
+    }
+}
 
+//Handle try again button
+const tryAgainBtnRef = document.getElementById('btn-try-again');
+tryAgainBtnRef.addEventListener('click', tryAgain);
+
+//Try again function
+function tryAgain() {
+    clearBoard();
+    reShuffle = chooseCards(cardDeck); 
+    drawCards(reShuffle);
+    pairsFound = 0;
+    attempts += 1;
+    gameEnded = false;
+    const loseBannerRef = document.getElementById('lose-banner');
+    const boardRef = document.getElementById('board');
+    const clockRef = document.getElementById('countdown');
+    loseBannerRef.style.display = "none";
+    boardRef.style.display = "flex";
+    clockRef.style.display = "block";
+    setClock();
+}
 
 //console.log(chooseCards(cardDeck));
+

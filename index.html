@@ -6,7 +6,7 @@
         <title>Speed Pairs</title>
     </head>
     <body>
-        <div id="intro">
+        <div id="intro" class="dialogue-box">
             <div id="intro-text">
                 <h2>Welcome to Speed Pairs!</h2>
                 <p>Every day some new hopeful enters my casino and wants to try the game that has never been beaten. None of them stand a chance of course, but it's 
@@ -20,7 +20,7 @@
                 <br>
                 <p>Best of luck and I can't wait to say I told you so.</p>        
             </div>
-            <div id="logo">
+            <div class="logo">
                 <img src="./Assets/Images/Others/our_host.png">
             </div>
             <button class="btn effect" id="btn-start">Start the clock</button>
@@ -35,10 +35,21 @@
            
         </div>
         
-
-        <p id='lose-banner'>You lose!</p>
+        <div id='lose-banner' class="dialogue-box">
+            <div id="lose-text">
+                <h2 id='lose-header'>Loserrrrrrr!</h2>
+                <p id="lose-dialogue">I mean really, were you even trying?</p>
+                <br>
+                <p>Nevermind, perhaps you'd like to <del>lose</del> try again?</p> 
+            </div>
+            <div class="logo">
+                <img src="./Assets/Images/Others/our_host.png">
+            </div>
+            <button class="btn effect" id="btn-try-again" type="button">Try again</button>
+        </div>
+        
         <p id='win-banner'>You win!</p>
-        <button class="btn effect" id="btn-try-again" type="button">Try again</button>
+        
 
          <script type="text/javascript" src="./js/index.js"></script>
     </body>

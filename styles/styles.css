@@ -1,26 +1,31 @@
-/*
-body {
-    background: black;
-}
-*/
 
-#intro {
+body {
+    background-image: url("../Assets/Images/Others/casino_background.jpg"); /*needs double dots in css for background image*/
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.dialogue-box {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     align-content: space-around;
     justify-content: center;
     background: darkgreen;
+    opacity: 0.75;
     width: 700px;
 }
 
-#intro-text p {
+.dialogue-box p {
     width: 450px;
 }
 
-#logo img {
+.logo img {
     width: 200px;
     margin-left: 25px;
+    padding-top: 20px;
 }
 
 #board {
@@ -38,7 +43,16 @@ body {
 #board img {
     width: 75px;
     margin: 5px;
-    /*display: none;*/
+}
+
+#countdown {
+    color: #ffffff;
+    background-color: #000000;
+    font-family: 'Verdana';
+    font-size: 32pt;
+    width: fit-content;
+    /*display: inline-block;*/
+
 }
 
 #tick {
@@ -50,11 +64,11 @@ body {
     display: none;
 }
 
-#win-banner {
-    display: none;
+#lose-text {
+    width: 450px;
 }
 
-#btn-try-again {
+#win-banner {
     display: none;
 }
 
