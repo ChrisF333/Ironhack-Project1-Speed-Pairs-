@@ -10,6 +10,9 @@ window.onbeforeunload = function () {
 var timeAllowed = 30.0;
 var attempts = 0;
 var gameEnded = false;
+//and declare audio file for background music
+var backgroundMusic = new Audio('./Assets/Sounds/clock-running.wav') 
+
 
 //Handle start button
 const startBtnRef = document.getElementById('btn-start');
@@ -24,7 +27,10 @@ function startGame() {
     boardRef.style.setProperty('visibility', 'visible');
     clockRef.style.display = "block";
     attempts += 1;
+    backgroundMusic.play();
+    backgroundMusic.loop = true;
     setClock();
+    playBackgroundMusic();
 }
 
 //Instiate the playing card objects and link to assets
@@ -231,7 +237,7 @@ function cardMatcher(cardsSelected) {
     console.log(cardsSelected);
 }
 
-//Shows and then fades out green tick
+//Shows and then fades out green tick to indicate match found
 function matchFoundAnimation() {
    const tickRef = document.getElementById('tick');
    tickRef.style.opacity = 1;
@@ -245,6 +251,8 @@ function matchFoundAnimation() {
         clearInterval(fadeEffect);
     }
 }, 30);
+    const matchSound = new Audio('./Assets/Sounds/match_sound.wav');
+    matchSound.play();
 }
 
 //Shakes the board to indicate no match is found
@@ -267,6 +275,8 @@ function noMatchAnimation() {
         boardRef.style.setProperty('margin-left','10px')
         boardRef.style.setProperty('margin-right','10px');
     },10)
+    const noMatchSound = new Audio('./Assets/Sounds/nomatch_sound.wav');
+    noMatchSound.play();
 }
 
 //Set the game clock and handle timeout
@@ -286,10 +296,25 @@ function setClock() {
       }, 10);
 }
 
+//Handle random lose sounds
+function lossSound() {
+    let loseSounds = [];
+    loseSounds.push(new Audio('./Assets/Sounds/Laugh.wav'));
+    loseSounds.push(new Audio('./Assets/Sounds/crowd-laughing.wav'));
+    loseSounds.push(new Audio('./Assets/Sounds/woman-laugh.wav'));
+    loseSounds.push(new Audio('./Assets/Sounds/losing_short_tune.wav'));
+    loseSounds.push(new Audio('./Assets/Sounds/other_laugh.wav'));
+    soundNum = Math.floor(Math.random() * loseSounds.length)
+    loseSounds[soundNum].play();
+    loseSounds.loop = false;
+    loseSounds.playbackRate = 5;
+}
+
 //Handle game over events
 function gameOver(pairsFound) {
     console.log('Game Over!');
     gameEnded = true;     
+    backgroundMusic.pause();
     const boardRef = document.getElementById('board');
     const clockRef = document.getElementById('countdown');
     const loseBannerRef = document.getElementById('lose-banner');
@@ -298,8 +323,9 @@ function gameOver(pairsFound) {
     boardRef.style.display = "none";
     clockRef.style.display = "none";
     if (pairsFound < 12) {
+        lossSound();
         loserDialogues = [
-            'It\'s such a joy watching you fail. Just wanted you to know that.', 'Does your mother know how much of a failure you are?'
+            'It\'s such a joy watching you fail. I just wanted you to know that.', 'Does your mother know how much of a failure you are?'
             ,'Try, try and try again. And then give up, because you\'ll never win.', `How many attempts is that now? Oh yes it\'s ${attempts}. Not that we\'re keeping score of course...`
             ,'Perhaps you should ask Amanda to take a look at your typos...', 'There\'s no easy way to say this: you suck. I mean, you really, really do. No offence.'
         ];
@@ -313,6 +339,8 @@ function gameOver(pairsFound) {
     } else {
         const winDialogueRef = document.getElementById('win-dialogue');
         let timeSpent = (attempts * timeAllowed) / 60;
+        const winSound = new Audio('./Assets/Sounds/Applause.wav');
+        winSound.play();
         winDialogueRef.innerHTML = `Congratulations, you just wasted ${timeSpent} minutes of your life trying to beat me. Now which one of us is the loser?`
         winBannerRef.style.display = "flex";
     }
@@ -338,6 +366,8 @@ function tryAgain() {
     pairsFound = 0;
     attempts += 1;
     gameEnded = false;
+    backgroundMusic.play();
+    backgroundMusic.loop = true;
     const loseBannerRef = document.getElementById('lose-banner');
     const boardRef = document.getElementById('board');
     const clockRef = document.getElementById('countdown');
@@ -361,6 +391,8 @@ function startOver() {
     pairsFound = 0;
     attempts += 1;
     gameEnded = false;
+    backgroundMusic.play();
+    backgroundMusic.loop = true;
     const WinBannerRef = document.getElementById('win-banner');
     const boardRef = document.getElementById('board');
     const clockRef = document.getElementById('countdown');
