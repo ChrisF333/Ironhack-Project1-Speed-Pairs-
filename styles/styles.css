@@ -68,6 +68,10 @@ body {
     width: 450px;
 }
 
+#lose-dialogue {
+    font-style: italic;
+}
+
 #win-banner {
     display: none;
 }

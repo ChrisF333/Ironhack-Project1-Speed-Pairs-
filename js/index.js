@@ -294,9 +294,21 @@ function gameOver(pairsFound) {
     const clockRef = document.getElementById('countdown');
     const loseBannerRef = document.getElementById('lose-banner');
     const winBannerRef = document.getElementById('win-banner');
+    const loseDialogueRef = document.getElementById('lose-dialogue')
     boardRef.style.display = "none";
     clockRef.style.display = "none";
     if (pairsFound < 12) {
+        loserDialogues = [
+            'It\'s such a joy watching you fail. Just wanted you to know that.', 'Does your mother know how much of a failure you are?'
+            ,'Try, try and try again. And then give up, because you\'ll never win.', `How many attempts is that now? Oh yes it\'s ${attempts}. Not that we\'re keeping score of course...`
+            ,'Perhaps you should ask Amanda to take a look at your typos...', 'There\'s no easy way to say this: you suck. I mean, you really, really do. No offence.'
+        ];
+        if (attempts === 1) {
+                loseDialogueRef.innerHTML = `Wow, that wasn\'t even close. You\'re really terrible at this.`
+        } else {
+            let n = Math.floor(Math.random() * loserDialogues.length);
+            loseDialogueRef.innerHTML = loserDialogues[n];
+        }
         loseBannerRef.style.display = "flex";
     } else {
         const winDialogueRef = document.getElementById('win-dialogue');
