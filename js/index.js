@@ -21,9 +21,11 @@ startBtnRef.addEventListener('click', startGame);
 //Start game function
 function startGame() {
     const introRef = document.getElementById('intro');
+    const gameAreaRef = document.getElementById('game-area');
     const boardRef = document.getElementById('board');
     const clockRef = document.getElementById('countdown');
     introRef.style.display = "none";
+    gameAreaRef.style.display = "flex";
     boardRef.style.setProperty('visibility', 'visible');
     clockRef.style.display = "block";
     attempts += 1;

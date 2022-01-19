@@ -38,7 +38,7 @@ h5 {
 }
 
 #game-area {
-    display: flex;
+    display: none;
     align-items: flex-start;
     height: 550px;
 }
