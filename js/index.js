@@ -7,7 +7,7 @@ window.onbeforeunload = function () {
 
 
 //Code starts - declare importaant global variables
-var timeAllowed = 19.0;
+var timeAllowed = 17.0;
 var attempts = 0;
 var gameEnded = false;
 //and declare audio file for background music
@@ -329,6 +329,7 @@ function gameOver(pairsFound,jokerPresent) {
     const loseBannerRef = document.getElementById('lose-banner');
     const winBannerRef = document.getElementById('win-banner');
     const loseDialogueRef = document.getElementById('lose-dialogue')
+    const loseHeaderRef = document.getElementById('lose-header');
     gameAreaRef.style.display = 'none';
     boardRef.style.display = "none";
     clockRef.style.display = "none";
@@ -340,13 +341,16 @@ function gameOver(pairsFound,jokerPresent) {
             ,'Perhaps you should ask Amanda to take a look at your typos...', 'There\'s no easy way to say this: you suck. I mean, you really, really do. No offence.'
         ];
         if (attempts === 1 && !jokerPresent) {
+                loseHeaderRef.innerHTML = 'You lost.'
                 loseDialogueRef.innerHTML = `Wow, that wasn\'t even close. You\'re really terrible at this.`
         } else if (jokerPresent === true) {
+                loseHeaderRef.innerHTML = 'Smh.'
                 loseDialogueRef.innerHTML = `I tell you not to click on the joker and you click on the joker. You're not the sharpest tool in the toolbox are you?`;
         } 
         else {
             let n = Math.floor(Math.random() * loserDialogues.length);
             loseDialogueRef.innerHTML = loserDialogues[n];
+            loseHeaderRef.innerHTML = 'You lost. Again.'
         }
         loseBannerRef.style.display = "flex";
     } else {
