@@ -369,6 +369,8 @@ function tryAgain() {
     reShuffle = chooseCards(cardDeck); 
     drawCards(reShuffle);
     pairsFound = 0;
+    numberCardsSelected = 0;
+    cardsSelected = [];
     attempts += 1;
     gameEnded = false;
     backgroundMusic.play();
@@ -396,7 +398,9 @@ function startOver() {
     reShuffle = chooseCards(cardDeck); 
     drawCards(reShuffle);
     pairsFound = 0;
-    attempts += 1;
+    numberCardsSelected = 0;
+    cardsSelected = [];
+    attempts = 0;
     gameEnded = false;
     backgroundMusic.play();
     backgroundMusic.loop = true;
