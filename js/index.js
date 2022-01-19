@@ -5,7 +5,7 @@ window.onbeforeunload = function () {
 
 
 //Code starts - declare importaant global variables
-var timeAllowed = 17.0;
+var timeAllowed = 15.0;
 var attempts = 0;
 var gameEnded = false;
 //and declare audio file for background music
