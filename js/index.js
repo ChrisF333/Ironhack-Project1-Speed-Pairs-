@@ -1,5 +1,3 @@
-console.log('test')
-
 //force window to top on load
 window.onbeforeunload = function () {
     window.scrollTo(0, 0);
@@ -32,7 +30,6 @@ function startGame() {
     backgroundMusic.play();
     backgroundMusic.loop = true;
     setClock();
-    playBackgroundMusic();
 }
 
 //Instiate the playing card objects and link to assets
@@ -51,7 +48,7 @@ class Card {
 
 }
 
-//Card image paths
+//Card image paths - avoiding hard-coding as much as possible
 const cardPath = './Assets/Images/Cards/'
 const cardType = ['cardDiamonds', 'cardClubs', 'cardHearts','cardSpades','cardJoker'];
 let cardPaths = [];
@@ -129,7 +126,7 @@ function assignCardPaths() {
 
 assignCardPaths();
 
-//Assemble the deck of cards (select appropriate number of cards here?)
+//Assemble the deck of cards 
 var cardDeck = [];
 function getDeck() {
     cardPaths.forEach(e => {
@@ -177,7 +174,7 @@ function drawCards(shuffledDeck) {
 
 drawCards(chooseCards(cardDeck));
 
-//declare key game monitor variables
+//declare key game monitoring variables
 let numberCardsSelected = 0;
 let cardsSelected = [];
 let pairsFound = 0;
@@ -185,22 +182,17 @@ let pairsFound = 0;
 //Handle card click events and trigger matching when two are selected
 function cardClicked(e) {
     var a = e.target || e.srcElement;
-    console.log(a.id);
     if(a.id === 'Jk') { gameOver(pairsFound,true); } //Clicking the joker triggers instant game over
     if (a.class === 'playing-card') {
         numberCardsSelected += 1
         a.style.border = "3px solid orange";
         a.class = "playing-card-selected";
         cardsSelected.push(a);
-        //console.log(a.class);
-        //console.log(cardsSelected);
     } else {
         numberCardsSelected -= 1
         a.class = 'playing-card';
         a.style.border = "none";
         cardsSelected = cardsSelected.filter((el) => el !== a);
-        //console.log(a.class);
-        //console.log(cardsSelected);
     };
     if (numberCardsSelected === 2) {
         cardMatcher(cardsSelected);
@@ -215,10 +207,7 @@ function cardClicked(e) {
 
 //Compare the two cards and handle matched and unmatched events
 function cardMatcher(cardsSelected) {
-    console.log(cardsSelected);
-    console.log(numberCardsSelected);
     if (cardsSelected[0].id === cardsSelected[1].id) {
-        console.log("cards match!");
         cardsSelected.forEach((el) => {
             el.src="./Assets/Images/Others/cardBack_green5.png";
             el.class = "paired"
@@ -228,15 +217,13 @@ function cardMatcher(cardsSelected) {
         matchFoundAnimation();
         return pairsFound += 1;
     } else {
-        console.log("cards do not match");
         cardsSelected.forEach((el) => {
             el.class = "playing-card"
             el.style.border = "none";
             //return false
         });
         noMatchAnimation();
-    }
-    console.log(cardsSelected);
+    }    
 }
 
 //Shows and then fades out green tick to indicate match found
@@ -322,7 +309,6 @@ function lossSound() {
 
 //Handle game over events
 function gameOver(pairsFound,jokerPresent) {
-    console.log('Game Over!');
     gameEnded = true;     
     backgroundMusic.pause();
     const gameAreaRef = document.getElementById('game-area');
@@ -405,7 +391,6 @@ startOverBtnRef.addEventListener('click', startOver);
 
 //Clear attempts and start over
 function startOver() {
-    console.log('button working')
     attempts = 0;
     clearBoard();
     reShuffle = chooseCards(cardDeck); 
@@ -426,5 +411,6 @@ function startOver() {
     document.getElementById('countdown').style.color = 'white';
     setClock();
 }
-//console.log(chooseCards(cardDeck));
+
+//Code ends.
 
