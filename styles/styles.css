@@ -4,7 +4,7 @@ body {
     background-position: 0% 0%;
     background-repeat: no-repeat;
     background-size: cover;
-    position: relative;
+    position: absolute;
 }
 
 h1,
@@ -29,6 +29,7 @@ h5 {
 
 .dialogue-box p {
     width: 450px;
+    font-family: Helvetica;
 }
 
 .logo img {
