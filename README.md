@@ -47,7 +47,7 @@ There is a library of losing messages so the player is likely to see different r
 
 <!-- How to play -->
 ### How to Play
-To play Speed Pairs, just navigate to the io page
+To play Speed Pairs, just navigate to the <a href="https://chrisf333.github.io/Ironhack-Project1-Speed-Pairs-/">io page</a>
 
 The instructions are detailed at the beginning of the game.
 
