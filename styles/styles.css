@@ -7,15 +7,24 @@ body {
     position: relative;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: #FFF;
+    font-family: Tahoma;
+}
+
 .dialogue-box {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     align-content: space-around;
     justify-content: center;
-    background: darkgreen;
-    opacity: 0.75;
+    background: rgba(0,109,115,0.5);     /*rgba(158,158,158,0.5);*/
     width: 700px;
+    color: lightgrey;
 }
 
 .dialogue-box p {
@@ -26,6 +35,12 @@ body {
     width: 200px;
     margin-left: 25px;
     padding-top: 20px;
+}
+
+#game-area {
+    display: flex;
+    align-items: flex-start;
+    height: 550px;
 }
 
 #board {
@@ -45,19 +60,51 @@ body {
     margin: 5px;
 }
 
+#side-bar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    font-size: 24pt;
+    color: #FFF;
+    font-family: Tahoma;
+}
+
 #countdown {
     color: #ffffff;
-    background-color: #000000;
-    font-family: 'Verdana';
+    background-color: #640064;
+    font-family: 'Courier New';
+    font-weight: Bold;
     font-size: 32pt;
     width: fit-content;
+    border:3px solid black;
+    border-radius: 15%;
+    margin-top: 5px;
     /*display: inline-block;*/
-
 }
 
 #tick {
-    width: 50px;
+    height: 200px;
+    width: 70px;
     opacity: 0;
+    margin-top: 20px;
+}
+
+#pairs-found {
+    width: 60px;
+    height: 60px;
+    background: #640064;
+    border: 5px solid #006400;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Tahoma';
+    font-size: 22pt;
+    font-weight: 700;
+    margin-top: 5px;
 }
 
 #lose-banner {
@@ -68,8 +115,8 @@ body {
     width: 450px;
 }
 
-#lose-dialogue {
-    font-style: italic;
+.result-dialogue {
+    font-size: 16pt;
 }
 
 #win-banner {

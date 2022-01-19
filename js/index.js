@@ -3,11 +3,11 @@ console.log('test')
 //force window to top on load
 window.onbeforeunload = function () {
     window.scrollTo(0, 0);
-  }
+  };
 
 
 //Code starts - declare importaant global variables
-var timeAllowed = 30.0;
+var timeAllowed = 19.0;
 var attempts = 0;
 var gameEnded = false;
 //and declare audio file for background music
@@ -184,10 +184,10 @@ let pairsFound = 0;
 function cardClicked(e) {
     var a = e.target || e.srcElement;
     console.log(a.id);
-    if(a.id === 'Jk') { gameOver(pairsFound); } //Clicking the joker triggers instant game over
+    if(a.id === 'Jk') { gameOver(pairsFound,true); } //Clicking the joker triggers instant game over
     if (a.class === 'playing-card') {
         numberCardsSelected += 1
-        a.style.border = "2px solid orange";
+        a.style.border = "3px solid orange";
         a.class = "playing-card-selected";
         cardsSelected.push(a);
         //console.log(a.class);
@@ -250,7 +250,7 @@ function matchFoundAnimation() {
     } else {
         clearInterval(fadeEffect);
     }
-}, 30);
+}, 50);
     const matchSound = new Audio('./Assets/Sounds/match_sound.wav');
     matchSound.play();
 }
@@ -279,18 +279,26 @@ function noMatchAnimation() {
     noMatchSound.play();
 }
 
-//Set the game clock and handle timeout
+//Set the game clock and handle timeout and pairs found updates
 function setClock() {
     let timeLeft = timeAllowed; //set at top of code
+    const countdownRef = document.getElementById('countdown');
+    const pairsFoundRef = document.getElementById('pairs-found');
     let gameClock = setInterval(function () {
         if(gameEnded === true) {
             clearInterval(gameClock);
         } else if(timeLeft <= 0){
           clearInterval(gameClock);
-          document.getElementById("countdown").innerHTML = "Time Up";
+          countdownRef.innerHTML = "Time Up";
           gameOver(pairsFound);
         } else {
-          document.getElementById("countdown").innerHTML = timeLeft.toFixed(2); // + " seconds remaining";
+            countdownRef.innerHTML = timeLeft.toFixed(2); // + " seconds remaining";
+            pairsFoundRef.innerHTML = pairsFound
+          if (timeLeft < 10) {
+            countdownRef.style.color = 'red';
+            countdownRef.innerHTML = timeLeft.toFixed(2);
+            pairsFoundRef.innerHTML = pairsFound
+          }
         }
         timeLeft -= 0.01;
       }, 10);
@@ -311,15 +319,17 @@ function lossSound() {
 }
 
 //Handle game over events
-function gameOver(pairsFound) {
+function gameOver(pairsFound,jokerPresent) {
     console.log('Game Over!');
     gameEnded = true;     
     backgroundMusic.pause();
+    const gameAreaRef = document.getElementById('game-area');
     const boardRef = document.getElementById('board');
     const clockRef = document.getElementById('countdown');
     const loseBannerRef = document.getElementById('lose-banner');
     const winBannerRef = document.getElementById('win-banner');
     const loseDialogueRef = document.getElementById('lose-dialogue')
+    gameAreaRef.style.display = 'none';
     boardRef.style.display = "none";
     clockRef.style.display = "none";
     if (pairsFound < 12) {
@@ -329,16 +339,19 @@ function gameOver(pairsFound) {
             ,'Try, try and try again. And then give up, because you\'ll never win.', `How many attempts is that now? Oh yes it\'s ${attempts}. Not that we\'re keeping score of course...`
             ,'Perhaps you should ask Amanda to take a look at your typos...', 'There\'s no easy way to say this: you suck. I mean, you really, really do. No offence.'
         ];
-        if (attempts === 1) {
+        if (attempts === 1 && !jokerPresent) {
                 loseDialogueRef.innerHTML = `Wow, that wasn\'t even close. You\'re really terrible at this.`
-        } else {
+        } else if (jokerPresent === true) {
+                loseDialogueRef.innerHTML = `I tell you not to click on the joker and you click on the joker. You're not the sharpest tool in the toolbox are you?`;
+        } 
+        else {
             let n = Math.floor(Math.random() * loserDialogues.length);
             loseDialogueRef.innerHTML = loserDialogues[n];
         }
         loseBannerRef.style.display = "flex";
     } else {
         const winDialogueRef = document.getElementById('win-dialogue');
-        let timeSpent = (attempts * timeAllowed) / 60;
+        let timeSpent = parseFloat((attempts * timeAllowed) / 60).toFixed(2);
         const winSound = new Audio('./Assets/Sounds/Applause.wav');
         winSound.play();
         winDialogueRef.innerHTML = `Congratulations, you just wasted ${timeSpent} minutes of your life trying to beat me. Now which one of us is the loser?`
@@ -368,12 +381,15 @@ function tryAgain() {
     gameEnded = false;
     backgroundMusic.play();
     backgroundMusic.loop = true;
+    const gameAreaRef = document.getElementById('game-area');
     const loseBannerRef = document.getElementById('lose-banner');
     const boardRef = document.getElementById('board');
     const clockRef = document.getElementById('countdown');
+    gameAreaRef.style.display = "flex";
     loseBannerRef.style.display = "none";
     boardRef.style.display = "flex";
     clockRef.style.display = "block";
+    document.getElementById('countdown').style.color = 'white';
     setClock();
 }
 
@@ -394,11 +410,14 @@ function startOver() {
     backgroundMusic.play();
     backgroundMusic.loop = true;
     const WinBannerRef = document.getElementById('win-banner');
+    const gameAreaRef = document.getElementById('game-area');
     const boardRef = document.getElementById('board');
     const clockRef = document.getElementById('countdown');
     WinBannerRef.style.display = "none";
+    gameAreaRef.style.display = 'flex';
     boardRef.style.display = "flex";
     clockRef.style.display = "block";
+    document.getElementById('countdown').style.color = 'white';
     setClock();
 }
 //console.log(chooseCards(cardDeck));
