@@ -325,8 +325,10 @@ function gameOver(pairsFound,jokerPresent) {
         lossSound();
         loserDialogues = [
             'It\'s such a joy watching you fail. I just wanted you to know that.', 'Does your mother know how much of a failure you are?'
-            ,'Try, try and try again. And then give up, because you\'ll never win.', `How many attempts is that now? Oh yes it\'s ${attempts}. Not that we\'re keeping score of course...`
+            ,'Try, try and try again. And then give up. Loser.', `How many attempts is that now? Oh yes it\'s ${attempts}. Not that we\'re keeping score of course...`
             ,'Perhaps you should ask Amanda to take a look at your typos...', 'There\'s no easy way to say this: you suck. I mean, you really, really do. No offence.'
+            ,'When I said Speed Pairs was <i>unbeatable</i>, what exactly were you expecting?','Roses are red, violets are blue, you really suck, sad but it\'s true'
+            ,'Your failure is making Speed Pairs Great Again.'
         ];
         if (attempts === 1 && !jokerPresent) {
                 loseHeaderRef.innerHTML = 'You lost.'
