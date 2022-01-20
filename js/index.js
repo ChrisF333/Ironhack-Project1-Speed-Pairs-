@@ -31,10 +31,6 @@ startBtnRef.addEventListener('click', startGame);
 
 //Start game function
 function startGame() {
-    //const introRef = document.getElementById('intro');
-    //const gameAreaRef = document.getElementById('game-area');
-    //const boardRef = document.getElementById('board');
-    //const clockRef = document.getElementById('countdown');
     introRef.style.display = "none";
     gameAreaRef.style.display = "flex";
     boardRef.style.setProperty('visibility', 'visible');
@@ -54,11 +50,6 @@ class Card {
         this.width = '10'
         this.height = '20'
     }
-
-    draw(x, y) {
-        ctx.drawImage(this.img, x, y, this.width, this.height)
-    }
-
 }
 
 //Card image paths - avoiding hard-coding as much as possible
@@ -171,8 +162,6 @@ chooseCards(cardDeck);
 
 //Draw the cards on the canvas
 function drawCards(shuffledDeck) {
-    //let x = 0;
-    //let y = 0;
     let board = document.getElementById('board'); 
     for(let i = 0; i < shuffledDeck.length; i++) {
         let cardItem = document.createElement('img');
@@ -241,7 +230,6 @@ function cardMatcher(cardsSelected) {
 
 //Shows and then fades out green tick to indicate match found
 function matchFoundAnimation() {
-   //const tickRef = document.getElementById('tick');
    tickRef.style.opacity = 1;
    let fadeEffect = setInterval(function () {
     if (!tickRef.style.opacity) {
@@ -259,7 +247,6 @@ function matchFoundAnimation() {
 
 //Shakes the board to indicate no match is found
 function noMatchAnimation() {
-    //const boardRef = document.getElementById('board');
     boardRef.style.setProperty('margin-left','25px');
     setTimeout(function() {
         boardRef.style.setProperty('margin-right','25px');
@@ -284,8 +271,6 @@ function noMatchAnimation() {
 //Set the game clock and handle timeout and pairs found updates
 function setClock() {
     let timeLeft = timeAllowed; //set at top of code
-    //const clockRef = document.getElementById('countdown');
-    //const pairsFoundRef = document.getElementById('pairs-found');
     let gameClock = setInterval(function () {
         if(gameEnded === true) {
             clearInterval(gameClock);
@@ -324,13 +309,6 @@ function lossSound() {
 function gameOver(pairsFound,jokerPresent) {
     gameEnded = true;     
     backgroundMusic.pause();
-    //const gameAreaRef = document.getElementById('game-area');
-    //const boardRef = document.getElementById('board');
-    //const clockRef = document.getElementById('countdown');
-    //const loseBannerRef = document.getElementById('lose-banner');
-    //const winBannerRef = document.getElementById('win-banner');
-    //const loseDialogueRef = document.getElementById('lose-dialogue')
-    //const loseHeaderRef = document.getElementById('lose-header');
     gameAreaRef.style.display = 'none';
     boardRef.style.display = "none";
     clockRef.style.display = "none";
@@ -390,10 +368,6 @@ function tryAgain() {
     gameEnded = false;
     backgroundMusic.play();
     backgroundMusic.loop = true;
-    //const gameAreaRef = document.getElementById('game-area');
-    //const loseBannerRef = document.getElementById('lose-banner');
-    //const boardRef = document.getElementById('board');
-    //const clockRef = document.getElementById('countdown');
     gameAreaRef.style.display = "flex";
     loseBannerRef.style.display = "none";
     boardRef.style.display = "flex";
@@ -419,10 +393,6 @@ function startOver() {
     gameEnded = false;
     backgroundMusic.play();
     backgroundMusic.loop = true;
-    //const WinBannerRef = document.getElementById('win-banner');
-    //const gameAreaRef = document.getElementById('game-area');
-    //const boardRef = document.getElementById('board');
-    //const clockRef = document.getElementById('countdown');
     winBannerRef.style.display = "none";
     gameAreaRef.style.display = 'flex';
     boardRef.style.display = "flex";
