@@ -6,70 +6,71 @@
         <title>Speed Pairs</title>
     </head>
     <body>
-        <div id="intro" class="dialogue-box">
-            <div id="intro-text">
-                <h3>Welcome to the <i>unbeatable</i> Speed Pairs!</h3>
-                <p>Every day some new hopeful enters my casino and wants to try the game that has never been beaten. None of them stand a chance, but it's 
-                entertaining to watch them tear their hair out trying. Perhaps you'd like to be next?"</p>
-                <h4>How to play</h4>
-                <p>Speed pairs was made for stupid people like... oh nevermind.</p> 
-                <p>It's very simple: just find 12 pairs of cards before the time runs out. A pair can be, 
-                    for example, any two eights of any suit. To match two cards, simply click on one and then on the other - if your choices match they will be removed 
-                    from the board. But you better be quick, the timer starts as soon as you start the game! Such fun.</p>
-                <p><b>One last thing: </b><i>watch out for the joker. If you click on it, you lose instantly!</i></p>
-                <p>Best of luck and I can't wait to say I told you so.</p>        
-            </div>
-            <div class="logo">
-                <img src="./Assets/Images/Others/our_host.png">
-            </div>
-            <button class="btn effect" id="btn-start">Start the clock</button>
-        </div>
-        <!--Game Area-->
-        <div id='game-area'>
-            <div id="board">
-                <!--<img src="./Assets/Images/Cards/cardSpades5.png">-->
-            
-            </div>
-            <div id="side-bar">    
-                <i>Time left:</i>
-                <div id="countdown">
-                        <!--Clock is inserted here from JS-->
+        <div id="screen-focus">
+            <div id="intro" class="dialogue-box">
+                <div id="intro-text">
+                    <h3>Welcome to the <i>unbeatable</i> Speed Pairs!</h3>
+                    <p>Every day some new hopeful enters my casino and wants to try the game that has never been beaten. None of them stand a chance, but it's 
+                    entertaining to watch them tear their hair out trying. Perhaps you'd like to be next?"</p>
+                    <h4>How to play</h4>
+                    <p>Speed pairs was made for stupid people like... oh nevermind.</p> 
+                    <p>It's very simple: just find 12 pairs of cards before the time runs out. A pair can be, 
+                        for example, any two eights of any suit. To match two cards, simply click on one and then on the other - if your choices match they will be removed 
+                        from the board. But you better be quick, the timer starts as soon as you start the game! Such fun.</p>
+                    <p><b>One last thing: </b><i>watch out for the joker. If you click on it, you lose instantly!</i></p>
+                    <p>Best of luck and I can't wait to say I told you so.</p>        
                 </div>
-                <img id="tick" src="./Assets/Images/Others/green_tick.png">
-                <i>Pairs found:</i>
-                <div id="pairs-found">
-                    <!--Pairs found is updated here-->
+                <div class="logo">
+                    <img src="./Assets/Images/Others/our_host.png">
+                </div>
+                <button class="btn effect" id="btn-start">Start the clock</button>
+            </div>
+            <!--Game Area-->
+            <div id='game-area'>
+                <div id="board">
+                    <!--<img src="./Assets/Images/Cards/cardSpades5.png">-->
+                
+                </div>
+                <div id="side-bar">    
+                    <i>Time left:</i>
+                    <div id="countdown">
+                            <!--Clock is inserted here from JS-->
+                    </div>
+                    <img id="tick" src="./Assets/Images/Others/green_tick.png">
+                    <i>Pairs found:</i>
+                    <div id="pairs-found">
+                        <!--Pairs found is updated here-->
+                    </div>
                 </div>
             </div>
+            <!--Losing banner-->
+            <div id='lose-banner' class="dialogue-box">
+                <div id="lose-text">
+                    <h2 id='lose-header'>Loserrrrrrr!</h2>
+                    <p id="lose-dialogue" class="result-dialogue"></p>
+                    <br>
+                    <p><i>Nevermind, perhaps you'd like to <del>lose</del> try again?</i></p> 
+                </div>
+                <div class="logo">
+                    <img src="./Assets/Images/Others/our_host.png">
+                </div>
+                <button class="btn effect" id="btn-try-again" type="button">Try again</button>
+            </div>
+            <!--Winning banner-->
+            <div id='win-banner' class="dialogue-box">
+                <div id="win-text">
+                    <h2 id='win-header'>Well, well, well, you actually won!</h2>
+                    <p id="win-dialogue" class="result-dialogue"></p>
+                    <br>
+                    <p><i>Nevermind, you'll always be a winner to me (a non-sentient being). Seeing as you clearly have nothing better to do 
+                        perhaps you'd like to play again?</i></p> 
+                </div>
+                <div class="logo">
+                    <img src="./Assets/Images/Others/our_host.png">
+                </div>
+                <button class="btn effect" id="btn-start-over" type="button">Start over</button>
+            </div>
         </div>
-        <!--Losing banner-->
-        <div id='lose-banner' class="dialogue-box">
-            <div id="lose-text">
-                <h2 id='lose-header'>Loserrrrrrr!</h2>
-                <p id="lose-dialogue" class="result-dialogue"></p>
-                <br>
-                <p><i>Nevermind, perhaps you'd like to <del>lose</del> try again?</i></p> 
-            </div>
-            <div class="logo">
-                <img src="./Assets/Images/Others/our_host.png">
-            </div>
-            <button class="btn effect" id="btn-try-again" type="button">Try again</button>
-        </div>
-        <!--Winning banner-->
-        <div id='win-banner' class="dialogue-box">
-            <div id="win-text">
-                <h2 id='win-header'>Well, well, well, you actually won!</h2>
-                <p id="win-dialogue" class="result-dialogue"></p>
-                <br>
-                <p><i>Nevermind, you'll always be a winner to me (a non-sentient being). Seeing as you clearly have nothing better to do 
-                    perhaps you'd like to play again?</i></p> 
-            </div>
-            <div class="logo">
-                <img src="./Assets/Images/Others/our_host.png">
-            </div>
-            <button class="btn effect" id="btn-start-over" type="button">Start over</button>
-        </div>
-       
         <!--Scripts-->
          <script type="text/javascript" src="./js/index.js"></script>
     </body>
