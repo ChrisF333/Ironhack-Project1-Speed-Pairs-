@@ -23,7 +23,9 @@ const winBannerRef = document.getElementById('win-banner');
 const loseDialogueRef = document.getElementById('lose-dialogue');
 const loseHeaderRef = document.getElementById('lose-header');
 const winDialogueRef = document.getElementById('win-dialogue');
-
+const gameTitleRef = document.getElementById("game-title-one");
+const gtRedRef = document.getElementById("gt-red");
+const gtBlackRef = document.getElementById("gt-black");
 
 //Handle start button
 const startBtnRef = document.getElementById('btn-start');
@@ -39,6 +41,7 @@ function startGame() {
     backgroundMusic.play();
     backgroundMusic.loop = true;
     setClock();
+    gameTitleAnimation();    
 }
 
 //Instiate the playing card objects and link to assets
@@ -268,7 +271,36 @@ function noMatchAnimation() {
     noMatchSound.play();
 }
 
-//Set the game clock and handle timeout and pairs found updates
+
+
+function gameTitleAnimation() {
+    let titleTimer = 30.0;
+    let gameTitleClock = setInterval(function () {
+        if(gameEnded === true) {
+            clearInterval(gameTitleClock)
+        } else { 
+            if (gtRedRef.style.color === "red") {
+                gtRedRef.style.setProperty('color', 'black'); 
+            } 
+            else {
+                gtRedRef.style.setProperty('color', 'red') 
+            };
+            if (gtBlackRef.style.color === "black") {
+                gtBlackRef.style.setProperty('color', 'red');
+            } else {
+                gtBlackRef.style.setProperty('color', 'black');
+            };
+            if (gameTitleRef.style.border === "2pt solid black") {
+                gameTitleRef.style.setProperty('border', '2pt solid red');
+            } else {
+                gameTitleRef.style.setProperty('border', '2pt solid black');
+            };
+        }       
+        titleTimer -= 0.75;
+    }, 750);
+}
+
+//Set the game clock and handle timeout, pairs found updates and game title animation
 function setClock() {
     let timeLeft = timeAllowed; //set at top of code
     let gameClock = setInterval(function () {
@@ -280,11 +312,11 @@ function setClock() {
           gameOver(pairsFound);
         } else {
             clockRef.innerHTML = timeLeft.toFixed(2); // + " seconds remaining";
-            pairsFoundRef.innerHTML = pairsFound
+            pairsFoundRef.innerHTML = pairsFound;
           if (timeLeft < 10) {
             clockRef.style.color = 'red';
             clockRef.innerHTML = timeLeft.toFixed(2);
-            pairsFoundRef.innerHTML = pairsFound
+            pairsFoundRef.innerHTML = pairsFound;
           }
         }
         timeLeft -= 0.01;
@@ -374,6 +406,7 @@ function tryAgain() {
     clockRef.style.display = "block";
     document.getElementById('countdown').style.color = 'white';
     setClock();
+    gameTitleAnimation();
 }
 
 //Handle start over button
@@ -399,6 +432,7 @@ function startOver() {
     clockRef.style.display = "block";
     document.getElementById('countdown').style.color = 'white';
     setClock();
+    gameTitleAnimation();
 }
 
 //Code ends.

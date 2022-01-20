@@ -52,6 +52,18 @@ h5 {
     height: 550px;
 }
 
+#title-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#title-bar img {
+    width: 100px;
+    margin-top: 250px;
+    opacity: 0.85;
+}
+
 #board {
     width: 500px;
     display: flex;
@@ -81,6 +93,36 @@ h5 {
     font-family: Tahoma;
 }
 
+.game-title {
+    background-color: rgba(0,109,115,0.5);
+    color: #FFF;
+    font-size: 14pt;
+    font-weight: 600;
+    border: 2pt solid black;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+#gt-red {
+    color: red;
+    margin-top: 5px;
+    margin-bottom: -5px;
+    
+}
+
+#gt-black {
+    color: black;
+    margin-top: -5px;
+    margin-bottom: 5px;
+    
+}
+
 #countdown {
     color: #ffffff;
     background-color: #640064;
@@ -91,7 +133,6 @@ h5 {
     border:3px solid black;
     border-radius: 15%;
     margin-top: 5px;
-    /*display: inline-block;*/
 }
 
 #tick {
