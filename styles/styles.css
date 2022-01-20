@@ -4,7 +4,7 @@ body {
     background-position: 0% 0%;
     background-repeat: no-repeat;
     background-size: cover;
-    position: absolute;
+    position: relative;
 }
 
 h1,
